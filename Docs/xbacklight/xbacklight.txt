@@ -1,0 +1,4 @@
+For 'xbacklight' to work try using 'acpilight': https://gitlab.com/wavexx/acpilight
+
+Manual brightness control: write to /sys/class/backlight/intel_backlight/brightness
+Example: echo 3000 > /sys/class/backlight/intel_backlight/brightness

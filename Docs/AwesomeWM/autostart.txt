@@ -1,0 +1,3 @@
+Awesome config file is stored at:
+/etc/xdg/awesome/rc.lua
+
