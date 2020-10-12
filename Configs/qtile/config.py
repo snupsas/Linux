@@ -7,6 +7,7 @@ from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook, extension
 from typing import List  # noqa: F401
+from libqtile.widget import backlight
 
 mod = "mod4"                                        # Sets mod key to SUPER/WINDOWS
 myTerm = "terminology"                              # My terminal of choice
@@ -115,6 +116,12 @@ keys = [
          Key([mod, "control"], "Return",
              lazy.layout.toggle_split(),
              desc='Toggle between split and unsplit sides of stack'
+             ),
+         Key([], "XF86MonBrightnessUp",
+             lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.UP)
+             ),
+         Key([], "XF86MonBrightnessDown",
+             lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.DOWN)
              )
 ]
 
@@ -296,12 +303,6 @@ def init_widgets_list():
                 padding = 5,
                 fontsize = 14
                 ),
-                #widget.TextBox(
-                #text = " 🔋",
-                #foreground = colors[2],
-                #background = colors[0],
-                #padding = 0
-                #),
                 widget.Sep(
                 linewidth = 1,
                 padding = 10,
@@ -309,20 +310,47 @@ def init_widgets_list():
                 background = colors[0],
                 size_percent = 60
                 ),
+                widget.TextBox(
+                text = '',
+                foreground = colors[2],
+                background = colors[0],
+                padding = 0,
+                fontsize = 14
+                ),
                 widget.Battery(
                 foreground = colors[2],
                 background = colors[0],
                 padding = 5,
-                charge_char = '',
-                discharge_char = '',
                 format = "{percent:2.0%}",
                 update_interval = 60,
                 fontsize = 14
                 ),
-                #widget.Wlan(
-                #foreground = colors[2],
-                #background = colors[0]
-                #),
+                widget.Sep(
+                linewidth = 1,
+                padding = 10,
+                foreground = colors[4],
+                background = colors[0],
+                size_percent = 60
+                ),
+                widget.TextBox(
+                text = '',
+                foreground = colors[2],
+                background = colors[0],
+                padding = 0,
+                fontsize = 14
+                ),
+                widget.Backlight(
+                step = 10,               # percentage
+                update_interval = 0.5,
+                foreground = colors[2],
+                background = colors[0],
+                max_brightness_file = "max_brightness",
+                brightness_file = "brightness",
+                backlight_name = "intel_backlight",
+                fontsize = 14,
+                change_command = "bash /home/ben/.config/qtile/backlight.sh {0}",
+                format = "{percent:2.0%}"
+                ),
                 widget.Sep(
                 linewidth = 1,
                 padding = 10,
