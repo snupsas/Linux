@@ -51,6 +51,11 @@ keys = [
              lazy.shutdown(),
              desc='Shutdown Qtile'
              ),
+         Key([mod, "shift"], "l",
+             lazy.spawn("i3lock-fancy"),
+             desc='Lock screen'
+             ),
+ 
          ### Treetab controls
          Key([mod, "control"], "k",
              lazy.layout.section_up(),
